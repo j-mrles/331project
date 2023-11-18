@@ -1,4 +1,4 @@
-package com.example.tipcalculator;
+package com.example.GreenLightGame;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -6,13 +6,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class ModifiedTipCalculator extends Application{
+public class GreenLight extends Application {
     @Override
-    public void start(Stage stage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("GreenLightGame.fxml"));
+    public void start(Stage stage) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/GreenLightGame/GreenLight.fxml"));
+        loader.setController(new GreenLightGameController()); // Set the controller
+        Parent root = loader.load();
 
         Scene scene = new Scene(root);
-        stage.setTitle("ModifiedTipCalculator");
+        stage.setTitle("Green Light Red Light Game");
         stage.setScene(scene);
         stage.show();
     }
