@@ -142,10 +142,11 @@ public class PleaseProvideControllerClassName {
                             // Display red circles for each incorrect guess
                             redCircles = new Circle[5 - remainingTries];
                             for (int i = 0; i < redCircles.length; i++) {
-                                redCircles[i] = new Circle(10, Color.RED);
+                                redCircles[i] = new Circle(20, Color.RED);
                                 anchorPane.getChildren().add(redCircles[i]);
-                                redCircles[i].setLayoutX(50 + i * 25); // Adjust X position as needed
-                                redCircles[i].setLayoutY(50); // Adjust Y position as needed
+                                redCircles[i].setLayoutX(ResultWindowArea.getLayoutX() + i * 25); // Adjust X position
+                                redCircles[i].setLayoutY(ResultWindowArea.getLayoutY() + ResultWindowArea.getHeight() + 10); // Adjust Y position
+
                             }
                             }
                             String style = "-fx-text-fill: red;";
