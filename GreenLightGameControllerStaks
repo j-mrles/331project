@@ -1,0 +1,156 @@
+package com.example.GreenLightGame;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+
+public class GreenLightGameController {
+
+    @FXML
+    private Label DifficultyLabel;
+
+    @FXML
+    private Button EasyLevelButton;
+
+    @FXML
+    private Label GuessLabel;
+
+    @FXML
+    private TextField GuessTextField;
+
+    @FXML
+    private Button HardBLevelButton;
+
+    @FXML
+    private Label HintLabel;
+
+    @FXML
+    private TextArea HintTextArea;
+
+    @FXML
+    private Button MediumLevelButton;
+
+    @FXML
+    private TextArea ResultWindowArea;
+
+    @FXML
+    private ImageView SkyPicture;
+
+    @FXML
+    private AnchorPane anchorPane;
+
+    @FXML
+    private Button checkAnswerButton;
+
+    @FXML
+    private ImageView fungreenimage1;
+
+    @FXML
+    private ImageView fungreenimage2;
+
+    @FXML
+    private ImageView fungreenimage3;
+
+    private String correctWord;
+    private List<String> easyWords = Arrays.asList("Apple", "Banana", "Cherry", "Orange", "Grape");
+    private List<String> easyDescriptions = Arrays.asList(
+            "A sweet and crunchy fruit, can have be red, green or yellow",
+            "A tropical fruit that can be peeled",
+            "A small, red fruit, can be used in sundae",
+            "A citrus fruit with a tough peel, good for juicing ",
+            "A small, juicy fruit, could be sed in wine"
+    );
+
+    private List<String> mediumWords = Arrays.asList("Pangolin", "Axolotl", "Quokka", "Narwhal", "Platypus");
+    private List<String> mediumDescriptions = Arrays.asList(
+            "This mammal is known for its protective keratin scales, which cover its body like armor.",
+            "A fully aquatic salamander that retains its larval features throughout its life.",
+            "Often referred to as the \"happiest animal in the world," +
+                    "\" this marsupial is known for its friendly and smiling appearance.",
+            "Often called the \"unicorn of the sea,\" this marine mammal is recognized for its long, spiral tusk.",
+            "This unique mammal, native to Australia, lays eggs instead of giving birth and has a duck-like bill."
+    );
+
+    private List<String> hardWords = Arrays.asList("Algorithm", "Cryptocurrency", "Artificial Intelligence", "Blockchain", "Quantum Computing");
+    private List<String> hardDescriptions = Arrays.asList(
+            "A step-by-step procedure or formula for solving problems",
+            "A digital or virtual form of currency that uses cryptography",
+            "The simulation of human intelligence by machines",
+            "A decentralized and distributed ledger technology",
+            "A type of computing that takes advantage of the strange properties of quantum mechanics"
+    );
+
+    private int remainingTries = 5;
+
+    public GreenLightGameController() {
+    }
+
+    @FXML
+    void EasyButtonPressed(ActionEvent event) {
+        displayRandomWord(easyWords, easyDescriptions);
+    }
+
+    @FXML
+    void MediumButtonPressed(ActionEvent event) {
+        displayRandomWord(mediumWords, mediumDescriptions);
+    }
+
+    @FXML
+    void HardButtonPressed(ActionEvent event) {
+        displayRandomWord(hardWords, hardDescriptions);
+    }
+
+    private void displayRandomWord(List<String> words, List<String> descriptions) {
+        Random random = new Random();
+        int index = random.nextInt(words.size());
+        correctWord = words.get(index);
+        String description = descriptions.get(index);
+
+        HintTextArea.setText(description);
+    }
+
+    @FXML
+    void CheckButtonPressed(ActionEvent event) {
+        if (remainingTries <= 0) {
+            ResultWindowArea.setText("Out of tries. Game over!");
+            return;
+        }
+
+        // Get the user's input from the GuessTextField
+        String userGuess = GuessTextField.getText().trim();
+
+        // Check if the user's input matches the correct word
+        if (userGuess.equalsIgnoreCase(correctWord)) {
+            // The word is correct, display a larger green circle emoji
+            ResultWindowArea.setStyle("-fx-text-fill: green; -fx-font-size: 20px;");
+            ResultWindowArea.setText("\uD83D\uDFE2 Correct!");
+        } else {
+            // The word is incorrect, decrement remainingTries and display larger red circles for each incorrect guess
+            remainingTries--;
+
+            // Display red circle for each incorrect guess
+            StringBuilder resultText = new StringBuilder();
+            for (int i = 0; i < (5 - remainingTries); i++) {
+                resultText.append("\uD83D\uDD34 "); // Unicode for a red circle emoji with a space for separation
+            }
+
+            String redCircles = resultText.toString();
+            String text = "Incorrect. Try again! Tries left: " + remainingTries;
+
+            String style = "-fx-text-fill: red; -fx-font-size: 20px;";
+            ResultWindowArea.setStyle(style);
+
+            ResultWindowArea.setText(redCircles + "\n" + text);
+
+        }
+    }
+}
