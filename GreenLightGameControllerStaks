@@ -67,7 +67,7 @@ public class GreenLightGameController {
             "A tropical fruit that can be peeled",
             "A small, red fruit, can be used in sundae",
             "A citrus fruit with a tough peel, good for juicing ",
-            "A small, juicy fruit, could be sed in wine"
+            "A small, juicy fruit, could be used in wine"
     );
 
     private List<String> mediumWords = Arrays.asList("Pangolin", "Axolotl", "Quokka", "Narwhal", "Platypus");
