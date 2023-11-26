@@ -132,7 +132,7 @@ public class GreenLightGameController {
         if (userGuess.equalsIgnoreCase(correctWord)) {
             // The word is correct, display a larger green circle emoji
             ResultWindowArea.setStyle("-fx-text-fill: green; -fx-font-size: 20px;");
-            ResultWindowArea.setText("\uD83D\uDFE2 Correct!");
+            ResultWindowArea.setText("\uD83D\uDD35 Correct!");
         } else {
             // The word is incorrect, decrement remainingTries and display larger red circles for each incorrect guess
             remainingTries--;
